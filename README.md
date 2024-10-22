@@ -1,2 +1,5 @@
 # admin-service
 Service for managing admin accounts, authentication, and authorization.
+
+### ERD:
+[![](https://mermaid.ink/img/pako:eNp1UEFqAzEM_IrRZVvYF-wtkB5CaSnJ1VCUtbIxteVFtlNK2L9XTgIphMpgxjMaMfIZxuQIBiBZe5wEo2WjtVq_bd7PV9yKa9yTGO_Mx-udzUU8T-bgJZdPxkgPUsD_FIrowwM7Y87fSdxd2KcUCNngWPzpz5it0kbaZeFF4z11nCRi6HrToTshj-QaznUm6Z4tWL6alwbagR4iqcU73f-yq4VyJM0Kg0KH8tVci_ZhLWn3wyMMRSr1IKlORxgOGLK-6uyw0O3_buzyC9DGbSw?type=png)](https://mermaid.live/edit#pako:eNp1UEFqAzEM_IrRZVvYF-wtkB5CaSnJ1VCUtbIxteVFtlNK2L9XTgIphMpgxjMaMfIZxuQIBiBZe5wEo2WjtVq_bd7PV9yKa9yTGO_Mx-udzUU8T-bgJZdPxkgPUsD_FIrowwM7Y87fSdxd2KcUCNngWPzpz5it0kbaZeFF4z11nCRi6HrToTshj-QaznUm6Z4tWL6alwbagR4iqcU73f-yq4VyJM0Kg0KH8tVci_ZhLWn3wyMMRSr1IKlORxgOGLK-6uyw0O3_buzyC9DGbSw)
