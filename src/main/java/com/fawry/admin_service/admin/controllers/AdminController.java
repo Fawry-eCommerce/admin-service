@@ -1,8 +1,8 @@
 package com.fawry.admin_service.admin.controllers;
 
-import com.fawry.admin_service.admin.dtos.RequestAdminDTO;
-import com.fawry.admin_service.admin.dtos.ResponseAdminDTO;
+import com.fawry.admin_service.admin.dtos.AdminDTO;
 import com.fawry.admin_service.admin.services.AdminService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,26 +15,20 @@ public class AdminController {
     private final AdminService adminService;
 
     @PostMapping
-    public ResponseEntity<ResponseAdminDTO> addAdmin(@RequestBody RequestAdminDTO requestAdminDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(adminService.addAdmin(requestAdminDTO));
+    public ResponseEntity<AdminDTO> addAdmin(@Valid @RequestBody AdminDTO adminDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(adminService.addAdmin(adminDTO));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ResponseAdminDTO> findAdminById(@PathVariable Long id){
-        ResponseAdminDTO responseAdminDTO = adminService.findAdminById(id);
-        if(responseAdminDTO != null){
-            return ResponseEntity.ok(responseAdminDTO);
-        }
-        return ResponseEntity.badRequest().body(null);
+    public ResponseEntity<AdminDTO> findAdminById(@PathVariable Long id){
+        AdminDTO adminDTO = adminService.findAdminById(id);
+        return ResponseEntity.ok(adminDTO);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ResponseAdminDTO> updateAdminById(@PathVariable Long id, @RequestBody RequestAdminDTO requestAdminDTO){
-        ResponseAdminDTO responseAdminDTO = adminService.updateAdminById(id, requestAdminDTO);
-        if(responseAdminDTO != null){
-            return ResponseEntity.ok(responseAdminDTO);
-        }
-        return ResponseEntity.badRequest().body(null);
+    public ResponseEntity<AdminDTO> updateAdminById(@PathVariable Long id,@Valid @RequestBody AdminDTO newAdminDTO){
+        AdminDTO adminDTO = adminService.updateAdminById(id, newAdminDTO);
+        return ResponseEntity.ok(adminDTO);
 
     }
     @DeleteMapping("{id}")
