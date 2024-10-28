@@ -22,3 +22,6 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+security:
+  security-key: 3HmVhZTU4AVmKmltHLVQWncvmEJhEq54R6N1124J9Ys

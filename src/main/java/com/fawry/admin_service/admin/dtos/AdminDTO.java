@@ -3,11 +3,13 @@ package com.fawry.admin_service.admin.dtos;
 import com.fawry.admin_service.admin.entities.AdminRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
+@Builder
 public class AdminDTO {
     private Long id;
     @NotNull(message = "First Name is Required")

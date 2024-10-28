@@ -1,4 +1,4 @@
-package com.fawry.admin_service.admin.services;
+package com.fawry.admin_service.admin.services.admin;
 
 import com.fawry.admin_service.admin.dtos.AdminDTO;
 import com.fawry.admin_service.admin.entities.Admin;
@@ -6,13 +6,14 @@ import com.fawry.admin_service.admin.exceptions.AdminNotFoundException;
 import com.fawry.admin_service.admin.mappers.AdminMapper;
 import com.fawry.admin_service.admin.repositories.AdminRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl implements AdminService {
     private final AdminRepository adminRepository;
     private final AdminMapper adminMapper;
 
@@ -49,5 +50,20 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public void deleteAdminById(Long id) {
         adminRepository.deleteById(id);
+    }
+
+    @Override
+    public Admin getAdminByEmail(String email) {
+        return adminRepository.findByEmail(email).orElseThrow(
+                () -> new AdminNotFoundException("Admin Not Found")
+        );
+    }
+
+    @Override
+    public Admin getMyAdmin() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return adminRepository.findByEmail(email).orElseThrow(
+                () -> new AdminNotFoundException("Admin Not Found")
+        );
     }
 }
