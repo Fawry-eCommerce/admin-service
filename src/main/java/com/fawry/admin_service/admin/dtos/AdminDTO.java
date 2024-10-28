@@ -14,7 +14,8 @@ public class AdminDTO {
     private String firstName;
     @NotNull(message = "Last Name is Required")
     private String lastName;
-    @Email(message = "Email is Required")
+    @Email(message = "Email Format is Required")
+    @NotNull(message = "Email is Required")
     private String email;
     @NotNull(message = "Password is Required")
     private String password;
