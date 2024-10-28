@@ -111,6 +111,12 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
         <!-- End Configure Eureka Client -->
+        <!-- Configure OpenFeign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- End Configure OpenFeign -->
 
         <dependency>
             <groupId>org.mapstruct</groupId>
