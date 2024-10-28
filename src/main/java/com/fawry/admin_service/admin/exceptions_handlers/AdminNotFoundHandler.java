@@ -1,4 +1,4 @@
-package com.fawry.admin_service.admin.exception_handlers;
+package com.fawry.admin_service.admin.exceptions_handlers;
 
 import com.fawry.admin_service.admin.exceptions.AdminNotFoundException;
 import org.springframework.http.HttpStatus;
