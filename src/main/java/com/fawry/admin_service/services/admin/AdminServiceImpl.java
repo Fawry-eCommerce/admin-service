@@ -1,6 +1,7 @@
 package com.fawry.admin_service.services.admin;
 
 import com.fawry.admin_service.dtos.AdminDTO;
+import com.fawry.admin_service.dtos.AdminResponse;
 import com.fawry.admin_service.entities.Admin;
 import com.fawry.admin_service.exceptions.AdminNotFoundException;
 import com.fawry.admin_service.mappers.AdminMapper;
@@ -34,9 +35,9 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public AdminDTO findAdminById(Long id) {
+    public AdminResponse findAdminById(Long id) {
         Admin admin = findById(id);
-        return adminMapper.toAdminDTO(admin);
+        return adminMapper.toAdminResponse(admin);
     }
 
     @Override

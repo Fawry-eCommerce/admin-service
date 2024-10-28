@@ -5,6 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -79,6 +80,11 @@ public class CustomExceptionHandler {
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ExceptionMessage> handelUsernameNotFoundException(UsernameNotFoundException e) {
         return generateExceptionResponseEntity(e, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ExceptionMessage> handleAuthorizationDeniedException(AuthorizationDeniedException e) {
+        return generateExceptionResponseEntity(e, HttpStatus.FORBIDDEN);
     }
 
     private ResponseEntity<ExceptionMessage> generateExceptionResponseEntity(Exception e, HttpStatus status) {

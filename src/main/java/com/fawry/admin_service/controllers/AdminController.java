@@ -1,6 +1,7 @@
 package com.fawry.admin_service.controllers;
 
 import com.fawry.admin_service.dtos.AdminDTO;
+import com.fawry.admin_service.dtos.AdminResponse;
 import com.fawry.admin_service.entities.AdminRole;
 import com.fawry.admin_service.services.admin.AdminService;
 import jakarta.validation.Valid;
@@ -19,24 +20,25 @@ public class AdminController {
     private final AdminService adminService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_SUPER')")
+    @PreAuthorize("hasAuthority('SUPER')")
     public AdminDTO addAdmin(@Valid @RequestBody AdminDTO adminDTO){
         return adminService.addAdmin(adminDTO);
     }
 
     @GetMapping("{id}")
-    public AdminDTO findAdminById(@PathVariable Long id){
+    @PreAuthorize("hasAnyAuthority('SUPER', 'NORMAL', 'ADVANCED')")
+    public AdminResponse findAdminById(@PathVariable Long id){
         return adminService.findAdminById(id);
     }
 
     @PutMapping("{id}")
-    @PreAuthorize("hasRole('ROLE_SUPER')")
+    @PreAuthorize("hasAuthority('SUPER')")
     public AdminDTO updateAdminById(@PathVariable Long id,@Valid @RequestBody AdminDTO newAdminDTO){
         return adminService.updateAdminById(id, newAdminDTO);
     }
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasAnyRole('ROLE_SUPER')")
+    @PreAuthorize("hasAuthority('SUPER')")
     public void deleteAdminById(@PathVariable Long id){
         adminService.deleteAdminById(id);
     }
