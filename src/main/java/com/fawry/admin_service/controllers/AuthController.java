@@ -33,13 +33,13 @@ public class AuthController {
     @GetMapping("has-role")
     public boolean hasRole(
             @RequestParam String role,
-            @RequestHeader("Authorization") String token) {
+            @RequestParam String token) {
         return authService.hasRole(token, role);
     }
 
     @GetMapping("has-any-role")
     public boolean hasAnyRole(
-            @RequestHeader("Authorization") String token,
+            @RequestParam String token,
             @RequestParam String... roles) {
         return authService.hasAnyRole(token, roles);
     }

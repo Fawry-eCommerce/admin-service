@@ -71,6 +71,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean validateToken(String token) {
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
         String email = jwtService.extractClaim(token, Claims::getSubject);
         Admin admin = adminService.getAdminByEmail(email);
         return jwtService.isTokenValid(token, admin);
@@ -78,6 +81,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean hasRole(String token, String role) {
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
         return jwtService.hasRole(token , role);
     }
 
