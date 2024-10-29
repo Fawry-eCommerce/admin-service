@@ -80,4 +80,10 @@ public class AuthServiceImpl implements AuthService {
     public boolean hasRole(String token, String role) {
         return jwtService.hasRole(token , role);
     }
+
+    @Override
+    public boolean hasAnyRole(String token, String... roles) {
+        return jwtService.hasAnyRole(token, roles);
+    }
+
 }

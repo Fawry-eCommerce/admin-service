@@ -79,6 +79,18 @@ public class JwtService {
         return adminRole.equals(role);
     }
 
+    public boolean hasAnyRole(String token, String... roles) {
+        Claims claims = extractAllClaims(token);
+        String email = claims.get("sub", String.class);
+        String adminRole = adminService.getAdminByEmail(email).getRole().name();
+        for (String role : roles) {
+            if (adminRole.equals(role)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private Key getSingingKey(){
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);

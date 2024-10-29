@@ -4,11 +4,14 @@ import com.fawry.admin_service.dtos.AdminDTO;
 import com.fawry.admin_service.dtos.AdminResponse;
 import com.fawry.admin_service.entities.Admin;
 
+import java.util.List;
+
 public interface AdminService {
+    List<AdminResponse> findAllAdmins();
     Admin saveAdmin(AdminDTO admin);
-    AdminDTO addAdmin(AdminDTO adminDTO);
+    AdminResponse addAdmin(AdminDTO adminDTO);
     AdminResponse findAdminById(Long id);
-    AdminDTO updateAdminById(Long id, AdminDTO adminDTO);
+    AdminResponse updateAdminById(Long id, AdminDTO adminDTO);
     Admin findById(Long id);
     void deleteAdminById(Long id);
     Admin getAdminByEmail(String email);

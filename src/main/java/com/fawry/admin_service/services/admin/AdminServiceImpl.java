@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,13 +21,21 @@ public class AdminServiceImpl implements AdminService {
     private final AdminMapper adminMapper;
 
     @Override
+    public List<AdminResponse> findAllAdmins() {
+        return adminRepository.findAll()
+                .stream()
+                .map(adminMapper::toAdminResponse)
+                .toList();
+    }
+
+    @Override
     public Admin saveAdmin(AdminDTO admin) {
         return adminRepository.save(adminMapper.toAdmin(admin));
     }
 
     @Override
-    public AdminDTO addAdmin(AdminDTO adminDTO) {
-        return adminMapper.toAdminDTO(saveAdmin(adminDTO));
+    public AdminResponse addAdmin(AdminDTO adminDTO) {
+        return adminMapper.toAdminResponse(saveAdmin(adminDTO));
     }
 
     @Override
@@ -41,7 +50,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public AdminDTO updateAdminById(Long id, AdminDTO adminDTO) {
+    public AdminResponse updateAdminById(Long id, AdminDTO adminDTO) {
         Admin admin = findById(id);
         Optional.ofNullable(adminDTO.getFirstName()).ifPresent(admin::setFirstName);
         Optional.ofNullable(adminDTO.getLastName()).ifPresent(admin::setLastName);
@@ -49,7 +58,7 @@ public class AdminServiceImpl implements AdminService {
         Optional.ofNullable(adminDTO.getPassword()).ifPresent(admin::setPassword);
         Optional.ofNullable(adminDTO.getActive()).ifPresent(admin::setActive);
         Optional.ofNullable(adminDTO.getRole()).ifPresent(admin::setRole);
-        return adminMapper.toAdminDTO(adminRepository.save(admin));
+        return adminMapper.toAdminResponse(adminRepository.save(admin));
     }
 
     @Override

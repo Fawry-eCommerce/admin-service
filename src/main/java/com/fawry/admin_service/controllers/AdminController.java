@@ -19,9 +19,14 @@ public class AdminController {
 
     private final AdminService adminService;
 
+    @GetMapping
+    public List<AdminResponse> findAllAdmins(){
+        return adminService.findAllAdmins();
+    }
+
     @PostMapping
     @PreAuthorize("hasAuthority('SUPER')")
-    public AdminDTO addAdmin(@Valid @RequestBody AdminDTO adminDTO){
+    public AdminResponse addAdmin(@Valid @RequestBody AdminDTO adminDTO){
         return adminService.addAdmin(adminDTO);
     }
 
@@ -33,7 +38,7 @@ public class AdminController {
 
     @PutMapping("{id}")
     @PreAuthorize("hasAuthority('SUPER')")
-    public AdminDTO updateAdminById(@PathVariable Long id,@Valid @RequestBody AdminDTO newAdminDTO){
+    public AdminResponse updateAdminById(@PathVariable Long id,@Valid @RequestBody AdminDTO newAdminDTO){
         return adminService.updateAdminById(id, newAdminDTO);
     }
 

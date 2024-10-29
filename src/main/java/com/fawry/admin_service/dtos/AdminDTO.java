@@ -21,8 +21,6 @@ public class AdminDTO {
     private String email;
     @NotNull(message = "Password is Required")
     private String password;
-    @NotNull(message = "Active/Inactive is Required")
     private Boolean active;
-    @NotNull(message = "Role is Required")
     private AdminRole role;
 }

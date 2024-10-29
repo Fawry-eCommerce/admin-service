@@ -9,4 +9,5 @@ public interface AuthService {
     AuthResponse authenticate(LoginRequest loginRequest);
     boolean validateToken(String token);
     boolean hasRole(String token, String role);
+    boolean hasAnyRole(String token, String... roles);
 }
