@@ -3,6 +3,7 @@ package com.fawry.admin_service.services.admin;
 import com.fawry.admin_service.dtos.AdminDTO;
 import com.fawry.admin_service.dtos.AdminResponse;
 import com.fawry.admin_service.entities.Admin;
+import com.fawry.admin_service.entities.AdminRole;
 import com.fawry.admin_service.exceptions.AdminNotFoundException;
 import com.fawry.admin_service.mappers.AdminMapper;
 import com.fawry.admin_service.repositories.AdminRepository;
@@ -11,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +30,10 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin saveAdmin(AdminDTO admin) {
-        return adminRepository.save(adminMapper.toAdmin(admin));
+        Admin newAdmin = adminMapper.toAdmin(admin);
+        newAdmin.setActive(true);
+        newAdmin.setRole(admin.getRole() != null ? admin.getRole() : AdminRole.NORMAL);
+        return adminRepository.save(newAdmin);
     }
 
     @Override
@@ -40,30 +43,27 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin findById(Long id) {
-        return adminRepository.findById(id).orElseThrow(() -> new AdminNotFoundException("Admin Not Found"));
+        return adminRepository.findById(id).orElseThrow(
+                () -> new AdminNotFoundException("Admin Not Found")
+        );
     }
 
     @Override
     public AdminResponse findAdminById(Long id) {
-        Admin admin = findById(id);
-        return adminMapper.toAdminResponse(admin);
+        return adminMapper.toAdminResponse(findById(id));
     }
 
     @Override
     public AdminResponse updateAdminById(Long id, AdminDTO adminDTO) {
         Admin admin = findById(id);
-        Optional.ofNullable(adminDTO.getFirstName()).ifPresent(admin::setFirstName);
-        Optional.ofNullable(adminDTO.getLastName()).ifPresent(admin::setLastName);
-        Optional.ofNullable(adminDTO.getEmail()).ifPresent(admin::setEmail);
-        Optional.ofNullable(adminDTO.getPassword()).ifPresent(admin::setPassword);
-        Optional.ofNullable(adminDTO.getActive()).ifPresent(admin::setActive);
-        Optional.ofNullable(adminDTO.getRole()).ifPresent(admin::setRole);
+        updateAdminDetails(admin, adminDTO);
         return adminMapper.toAdminResponse(adminRepository.save(admin));
     }
 
     @Override
     public void deleteAdminById(Long id) {
-        adminRepository.deleteById(id);
+        Admin admin = findById(id);
+        adminRepository.delete(admin);
     }
 
     @Override
@@ -84,5 +84,14 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public boolean isEmailExists(String email) {
         return adminRepository.existsByEmail(email);
+    }
+
+    private void updateAdminDetails(Admin admin, AdminDTO adminDTO) {
+        admin.setFirstName(adminDTO.getFirstName());
+        admin.setLastName(adminDTO.getLastName());
+        admin.setEmail(adminDTO.getEmail());
+        admin.setPassword(adminDTO.getPassword());
+        admin.setActive(adminDTO.getActive());
+        admin.setRole(adminDTO.getRole() != null? adminDTO.getRole() : AdminRole.NORMAL);
     }
 }
