@@ -30,6 +30,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin saveAdmin(AdminDTO admin) {
+        if (isEmailExists(admin.getEmail())) {
+            throw new IllegalArgumentException("Email already exists");
+        }
         Admin newAdmin = adminMapper.toAdmin(admin);
         newAdmin.setActive(true);
         newAdmin.setRole(admin.getRole() != null ? admin.getRole() : AdminRole.NORMAL);
