@@ -17,4 +17,5 @@ public interface AdminService {
     Admin getAdminByEmail(String email);
     Admin getMyAdmin();
     boolean isEmailExists(String email);
+    boolean toggleAdminActive(Long id);
 }

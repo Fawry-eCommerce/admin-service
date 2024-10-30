@@ -89,6 +89,14 @@ public class AdminServiceImpl implements AdminService {
         return adminRepository.existsByEmail(email);
     }
 
+    @Override
+    public boolean toggleAdminActive(Long id) {
+        Admin admin = findById(id);
+        admin.setActive(!admin.getActive());
+        adminRepository.save(admin);
+        return true;
+    }
+
     private void updateAdminDetails(Admin admin, AdminDTO adminDTO) {
         admin.setFirstName(adminDTO.getFirstName());
         admin.setLastName(adminDTO.getLastName());

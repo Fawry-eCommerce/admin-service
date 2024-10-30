@@ -53,4 +53,10 @@ public class AdminController {
         return Arrays.stream(AdminRole.values()).map(Enum::name).filter(role -> !role.equals("SUPER")).toList();
     }
 
+    @PutMapping("toggle-active/{id}")
+    @PreAuthorize("hasAuthority('SUPER')")
+    public boolean toggleAdminActive(@PathVariable Long id){
+        return adminService.toggleAdminActive(id);
+    }
+
 }
